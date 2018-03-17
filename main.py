@@ -1,23 +1,28 @@
 import dataset
-import requests
-
-def download_game(g):
-    local_filename = g['Name'] + ".pkg"
-    # NOTE the stream=True parameter
-    r = requests.get(g['PKG direct link'], stream=True)
-    with open(local_filename, 'wb') as f:
-        for chunk in r.iter_content(chunk_size=1024): 
-            if chunk: # filter out keep-alive new chunks
-                f.write(chunk)
-    return local_filename
+from functions import *
 
 db = dataset.connect("sqlite:///games.db")
 games = db['games']
 
-titleid = input("Title ID:")
+print("NPS Database Client")
 
-for g in games:
-    if g['Title ID'] == titleid:
-        print("Downloading, please wait")
-        download_game(g)
-        print("Download finished")
+while True:
+    mode = input("Select mode (h for help):")
+
+    if mode == "s":
+        search = input("Search term:").lower()
+        for g in games:
+            if search in g['Name'].lower():
+                print("{}, {}, {}".format(g['Title ID'],g['Region'],g["Name"]))
+    elif mode == "d":
+        tid = input("input title ID").upper()
+        print("Starting download (please wait)")
+        for g in games:
+            if g['Title ID'] == tid:
+                download_game(g)
+        print("download finished")
+    elif mode == "h":
+        print("Modes: s (search), d (download), h (help)")
+
+    else:
+        print("Not a valid mode! (h for help)")
