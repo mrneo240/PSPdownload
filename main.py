@@ -30,17 +30,21 @@ while True:
         tid = input("title ID to download: ").upper()
         iso = True if input("Convert to ISO? (y/n):") else False 
         print("Starting download (please wait)")
+        gn = None
         for g in games:
             if g['Title ID'] == tid:
                 gn = g
-                download_game(g)
-        if iso == True:
-            print("Converting to ISO")
-            sp.run(["./" + p2z,"-x",gn['Name'] + ".pkg"])
-            shutil.move("pspemu/ISO", "ISO")
-            shutil.rmtree("pspemu")
-            os.remove(gn['Name'] + ".pkg")
-        print("download finished")
+        if gn is not None:
+            download_game(gn)
+            if iso == True:
+                print("Converting to ISO")
+                sp.run(["./" + p2z,"-x",gn['Name'] + ".pkg"])
+                shutil.move("pspemu/ISO", "ISO")
+                shutil.rmtree("pspemu")
+                os.remove(gn['Name'] + ".pkg")
+            print("download finished")
+        else:
+            print("title key invalid or other database error")
     elif mode == "h":
         print("Modes: s (search), d (download), h (help), q (quit)")
 
