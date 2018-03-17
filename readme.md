@@ -1,4 +1,4 @@
-## PSP Downlaod tool
+## PSP Download tool
 
 this is a tool to download PSP games. requires `requests` and `dataset` from pip.
 
