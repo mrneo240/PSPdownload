@@ -1,6 +1,6 @@
 ## PSP Download tool
 
-this is a tool to download PSP games. requires `requests` and `dataset` from pip.
+this is a tool to download PSP games as ISOs. requires `requests` and `dataset` from pip.
 
 ### Setup
 
