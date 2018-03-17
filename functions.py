@@ -17,7 +17,7 @@ def init_db():
     cur = con.cursor()
     cur.execute("CREATE TABLE games (\"Title ID\", \"Region\", \"Name\", \"PKG direct link\");")
     
-    with open('PSP_GAMES.tsv','r') as fin:
+    with open('PSP_GAMES.tsv','r', encoding="utf8") as fin:
         dr = csv.DictReader(fin, delimiter="\t")
         to_db = [(i['Title ID'], i['Region'], i['Name'],i['PKG direct link']) for i in dr]
     
