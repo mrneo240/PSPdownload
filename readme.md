@@ -6,11 +6,12 @@ this is a tool to download PSP games. requires `requests` and `dataset` from pip
 
 Get a copy of the psp games database file.
 
-then convert to a format the program can read: (this will be automated soon):
+then convert to a format the program can read. (this will be automated soon):
 ```
 sqlite3 games.db
-.mode tabs
-.import [PSP game file here] games
+sqlite> .mode tabs
+sqlite> .import [PSP game file here] games
+sqlite> .quit
 ```
 the program is  now ready to use.
 
