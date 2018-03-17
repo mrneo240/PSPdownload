@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
 
-import requests, csv, sqlite3
+import pycurl, csv, sqlite3
 
 def download_game(g):
     local_filename = g['Name'] + ".pkg"
+    local_file = open(local_filename,"wb")
     # NOTE the stream=True parameter
-    r = requests.get(g['PKG direct link'], stream=True)
-    with open(local_filename, 'wb') as f:
-        for chunk in r.iter_content(chunk_size=1024): 
-            if chunk: # filter out keep-alive new chunks
-                f.write(chunk)
+    c = pycurl.Curl()
+    c.setopt(pycurl.URL, g['PKG direct link'])
+    c.setopt(pycurl.WRITEDATA, local_file)
+    c.perform()
+    c.close()
     return local_filename
 
 def init_db():
