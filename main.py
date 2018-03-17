@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf8 -*-
+
 import dataset, sys, os, glob, shutil
 import subprocess as sp
 from functions import *

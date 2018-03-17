@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+
 import requests, csv, sqlite3
 
 def download_game(g):
