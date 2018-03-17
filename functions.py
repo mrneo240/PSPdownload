@@ -9,3 +9,4 @@ def download_game(g):
             if chunk: # filter out keep-alive new chunks
                 f.write(chunk)
     return local_filename
+
