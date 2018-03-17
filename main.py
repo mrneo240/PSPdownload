@@ -4,7 +4,7 @@ from functions import *
 db = dataset.connect("sqlite:///games.db")
 games = db['games']
 
-print("NPS Database Client")
+print("PSP game download client")
 
 while True:
     mode = input("Select mode (h for help):")
@@ -15,7 +15,7 @@ while True:
             if search in g['Name'].lower():
                 print("{}, {}, {}".format(g['Title ID'],g['Region'],g["Name"]))
     elif mode == "d":
-        tid = input("input title ID").upper()
+        tid = input("title ID to download: ").upper()
         print("Starting download (please wait)")
         for g in games:
             if g['Title ID'] == tid:
