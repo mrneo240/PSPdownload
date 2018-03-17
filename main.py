@@ -1,8 +1,10 @@
-import dataset, sys, os
+import dataset, sys, os, glob, shutil
+import subprocess as sp
 from functions import *
 
 db = dataset.connect("sqlite:///games.db")
 games = db['games']
+p2z = glob.glob("pkg2zip*")[0]
 
 print("PSP game download client")
 
@@ -26,10 +28,18 @@ while True:
                 print("{}, {}, {}".format(g['Title ID'],g['Region'],g["Name"]))
     elif mode == "d":
         tid = input("title ID to download: ").upper()
+        iso = True if input("Convert to ISO? (y/n):") else False 
         print("Starting download (please wait)")
         for g in games:
             if g['Title ID'] == tid:
+                gn = g
                 download_game(g)
+        if iso == True:
+            print("Converting to ISO")
+            sp.run(["./" + p2z,"-x",gn['Name'] + ".pkg"])
+            shutil.move("pspemu/ISO", "ISO")
+            shutil.rmtree("pspemu")
+            os.remove(gn['Name'] + ".pkg")
         print("download finished")
     elif mode == "h":
         print("Modes: s (search), d (download), h (help), q (quit)")
