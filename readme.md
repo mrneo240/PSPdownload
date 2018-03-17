@@ -12,4 +12,4 @@ To run this program you need a copy of the following files in the same folder as
 
 ### Usage
 
-this program has a simple command line interface, and has in inbuilt help system. Report any issues via the github issue tracker.
+this program has a simple command line interface, and has an inbuilt help system. Report any issues via the github issue tracker.
