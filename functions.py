@@ -5,8 +5,7 @@ import pycurl, csv, sqlite3
 def download_game(g):
     local_filename = g['Name'] + ".pkg"
     local_file = open(local_filename,"wb")
-    # NOTE the stream=True parameter
-    if g['PKG direct link'] != "MISSING"
+    if g['PKG direct link'] != "MISSING":
         c = pycurl.Curl()
         c.setopt(pycurl.URL, g['PKG direct link'])
         c.setopt(pycurl.WRITEDATA, local_file)
