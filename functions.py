@@ -6,11 +6,14 @@ def download_game(g):
     local_filename = g['Name'] + ".pkg"
     local_file = open(local_filename,"wb")
     # NOTE the stream=True parameter
-    c = pycurl.Curl()
-    c.setopt(pycurl.URL, g['PKG direct link'])
-    c.setopt(pycurl.WRITEDATA, local_file)
-    c.perform()
-    c.close()
+    if g['PKG direct link'] != "MISSING"
+        c = pycurl.Curl()
+        c.setopt(pycurl.URL, g['PKG direct link'])
+        c.setopt(pycurl.WRITEDATA, local_file)
+        c.perform()
+        c.close()
+    else:
+        print("There is no link associated with this game.")
     return local_filename
 
 def init_db():
