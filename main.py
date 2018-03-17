@@ -7,7 +7,7 @@ from functions import *
 
 db = dataset.connect("sqlite:///games.db")
 games = db['games']
-p2z = glob.glob("pkg2zip*")[0]
+p2z = "pkg2zip.exe" if os.name == 'nt' else "pkg2zip"
 
 print("PSP game download client")
 
