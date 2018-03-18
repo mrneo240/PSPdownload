@@ -35,3 +35,22 @@ def isocso(name,compression, p2z):
     shutil.move(glob.glob("pspemu/ISO/*")[0],"ISO")
     shutil.rmtree("pspemu")
     os.remove(name)
+
+def search(games, term):
+    for g in games:
+        if term in g['Name'].lower():
+            print("{}, {}, {}".format(g['Title ID'],g['Region'],g["Name"]))
+
+def process_dl(games, filetype, clevel, tid, p2z):
+    gn = None
+    for g in games:
+        if g['Title ID'] == tid:
+            gn = g
+    if gn is not None:
+        download_game(gn)
+        if filetype == 'i' or filetype == "iso":
+            isocso(gn['Name'] + ".pkg",0,p2z)
+        elif filetype == 'c' or filetype == "cso":
+            isocso(gn['Name'] + ".pkg",clevel,p2z)
+    else:
+        print("title key invalid or other database error")

@@ -12,4 +12,10 @@ To run this program you need a copy of the following files in the same folder as
 
 ### Usage
 
-this program has a simple command line interface, and has an inbuilt help system. Report any issues via the github issue tracker.
+this program has a simple interactive command line interface, and has an inbuilt help system. Report any issues via the github issue tracker.
+
+### Scripting
+This program can be used entirely from the command line, and in scripts. Command line argument format is this:
+```
+./main.py titleID filetype [compression level]
+```
