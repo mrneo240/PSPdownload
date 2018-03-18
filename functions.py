@@ -31,7 +31,7 @@ def init_db():
     con.close()
 
 def isocso(name,compression, p2z):
-    sp.run(["./" + p2z,"-x",name, "-c" + compression])
+    sp.run(["./" + p2z,"-x",name, "-c" + str(compression)])
     shutil.move("pspemu/ISO", "ISO")
     shutil.rmtree("pspemu")
     os.remove(name)
