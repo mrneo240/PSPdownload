@@ -20,6 +20,8 @@ while True:
             print("Init finished")
         else:
             sys.exit()
+    if not os.path.exists("ISO"):
+        os.mkdir("ISO")
 
     mode = input("Select mode (h for help):")
 
