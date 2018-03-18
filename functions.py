@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import pycurl, csv, sqlite3, os, shutil, glob
+import pycurl, csv, sqlite3, os, shutil, glob, sys, time
 import subprocess as sp
+
+START_TIME = None
 
 def download_game(g):
     local_filename = g['Name'] + ".pkg"
@@ -11,6 +13,7 @@ def download_game(g):
         c.setopt(pycurl.URL, g['PKG direct link'])
         c.setopt(pycurl.WRITEDATA, local_file)
         c.setopt(pycurl.NOPROGRESS, 0)
+        c.setopt(c.PROGRESSFUNCTION, progress)
         c.perform()
         c.close()
     else:
@@ -54,3 +57,24 @@ def process_dl(games, filetype, clevel, tid, p2z):
             isocso(gn['Name'] + ".pkg",clevel,p2z)
     else:
         print("title key invalid or other database error")
+
+# Print Download progress as bar
+def print_progress(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):
+    str_format = "{0:." + str(decimals) + "f}"
+    percents = str_format.format(100 * (iteration / float(total)))
+    filled_length = int(round(bar_length * iteration / float(total)))
+    bar = '█' * filled_length + '-' * (bar_length - filled_length)
+
+    sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percents, '%', suffix)),
+
+    if iteration == total:
+        sys.stdout.write('\n')
+    sys.stdout.flush()
+
+def progress(download_t, download_d, upload_t, upload_d):
+    if int(download_t) == 0:
+        return
+    global START_TIME
+    if START_TIME is None:
+        START_TIME = time.time()
+    print_progress(download_d,download_t,'%d/%d MB' % (download_d/1024/1024,download_t/1024/1024),'',1,40)
