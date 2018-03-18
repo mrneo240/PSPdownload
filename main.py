@@ -30,8 +30,10 @@ while True:
             if search in g['Name'].lower():
                 print("{}, {}, {}".format(g['Title ID'],g['Region'],g["Name"]))
     elif mode == "d":
-        tid = input("title ID to download: ").upper()
-        iso = True if input("Convert to ISO? (y/n):") else False 
+        tid = input("Title ID to download:").upper()
+        filetype = input("Output file type ([i]so, [c]so, [p]kg):").lower()
+        if filetype == 'c':
+            clevel = input("CSO compression level (1-9):")
         print("Starting download (please wait)")
         gn = None
         for g in games:
@@ -39,12 +41,10 @@ while True:
                 gn = g
         if gn is not None:
             download_game(gn)
-            if iso == True:
-                print("Converting to ISO")
-                sp.run(["./" + p2z,"-x",gn['Name'] + ".pkg"])
-                shutil.move("pspemu/ISO", "ISO")
-                shutil.rmtree("pspemu")
-                os.remove(gn['Name'] + ".pkg")
+            if filetype == 'i':
+                isocso(gn['Name'] + ".pkg",0,p2z)
+            elif filetype == 'c':
+                isocso(gn['Name'] + ".pkg",clevel,p2z)
             print("download finished")
         else:
             print("title key invalid or other database error")

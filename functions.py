@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import pycurl, csv, sqlite3
+import pycurl, csv, sqlite3, os, shutil
+import subprocess as sp
 
 def download_game(g):
     local_filename = g['Name'] + ".pkg"
@@ -28,3 +29,9 @@ def init_db():
     cur.executemany("INSERT INTO games (\"Title ID\", \"Region\", \"Name\", \"PKG direct link\") VALUES (?, ?, ?, ?);", to_db)
     con.commit()
     con.close()
+
+def isocso(name,compression, p2z):
+    sp.run(["./" + p2z,"-x",name, "-c" + compression])
+    shutil.move("pspemu/ISO", "ISO")
+    shutil.rmtree("pspemu")
+    os.remove(name)
