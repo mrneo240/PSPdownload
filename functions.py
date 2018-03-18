@@ -9,6 +9,7 @@ def download_game(g):
         c = pycurl.Curl()
         c.setopt(pycurl.URL, g['PKG direct link'])
         c.setopt(pycurl.WRITEDATA, local_file)
+        c.setopt(pycurl.NOPROGRESS, 0)
         c.perform()
         c.close()
     else:
@@ -27,5 +28,3 @@ def init_db():
     cur.executemany("INSERT INTO games (\"Title ID\", \"Region\", \"Name\", \"PKG direct link\") VALUES (?, ?, ?, ?);", to_db)
     con.commit()
     con.close()
-    
-    
