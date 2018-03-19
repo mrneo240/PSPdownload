@@ -21,6 +21,7 @@ def init_program():
     except OSError as e:
         if e.errno != errno.EEXIST:
             raise
+            
 def set_tk_window(obj):
     global cur_window
     cur_window = obj

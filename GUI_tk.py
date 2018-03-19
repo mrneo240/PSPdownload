@@ -36,7 +36,7 @@ class Window:
         self.games = get_games_obj()
         for game in games:
             self.listbox.insert(tk.END, "{}, {}, {}".format(game['Title ID'],game['Region'],game["Name"]))
-            self.results.append({'title_id':game['Title ID'],'region':game['Region'],'name':game["Name"]})
+            self.results.append({'Title ID':game['Title ID'],'Region':game['Region'],'Name':game["Name"]})
     
     def search_func(self):
         self.listbox.delete(0,tk.END)
