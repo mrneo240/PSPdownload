@@ -57,6 +57,7 @@ def process_dl(games, filetype, clevel, tid, p2z):
             isocso(gn['Name'] + ".pkg",0,p2z)
         elif filetype == 'c' or filetype == "cso":
             isocso(gn['Name'] + ".pkg",clevel,p2z)
+        return gn
     else:
         return None
 
