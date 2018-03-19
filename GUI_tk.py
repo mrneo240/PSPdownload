@@ -78,9 +78,11 @@ class ProgressWindow:
         self.progressbar["maximum"] = 100 
 
         dl = process_dl(get_games_obj(), filetype, clevel, tid, get_p2z_obj())
+        self.master.destroy()
         if dl == None:
             tk.messagebox.showinfo("Error", "Incorrect title ID or link is not in database")
         tk.messagebox.showinfo("Success!", "Download finished")    
+        
 
     def update_bar(self,downloaded, total):
         self.progressbar["value"] = downloaded/1024/1024
