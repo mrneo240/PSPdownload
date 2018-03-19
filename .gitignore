@@ -5,3 +5,4 @@ pkg2zip
 pkg2zip.exe
 games.db
 *.tsv
+*.pkg

@@ -2,6 +2,7 @@
 
 import pycurl, csv, sqlite3, os, shutil, glob, sys, time
 import subprocess as sp
+from GUI_main import get_tk_window
 
 START_TIME = None
 
@@ -14,6 +15,21 @@ def download_game(g):
         c.setopt(pycurl.WRITEDATA, local_file)
         c.setopt(pycurl.NOPROGRESS, 0)
         c.setopt(c.PROGRESSFUNCTION, progress)
+        c.perform()
+        c.close()
+    else:
+        print("There is no link associated with this game.")
+    return local_filename
+
+def download_game_gui(g):
+    local_filename = g['Name'] + ".pkg"
+    local_file = open(local_filename,"wb")
+    if g['PKG direct link'] != "MISSING":
+        c = pycurl.Curl()
+        c.setopt(pycurl.URL, g['PKG direct link'])
+        c.setopt(pycurl.WRITEDATA, local_file)
+        c.setopt(pycurl.NOPROGRESS, 0)
+        c.setopt(c.PROGRESSFUNCTION, progress_gui)
         c.perform()
         c.close()
     else:
@@ -46,13 +62,20 @@ def search(games, term):
             results.append("{}, {}, {}".format(g['Title ID'],g['Region'],g["Name"]))
     return results
 
+def search_list(games, term):
+    results = []
+    for g in games:
+        if term in g['Name'].lower():
+            results.append({'Title ID':g['Title ID'],'Region':g['Region'],'Name':g["Name"]})
+    return results
+
 def process_dl(games, filetype, clevel, tid, p2z):
     gn = None
     for g in games:
         if g['Title ID'] == tid:
             gn = g
     if gn is not None:
-        download_game(gn)
+        download_game_gui(gn)
         if filetype == 'i' or filetype == "iso":
             isocso(gn['Name'] + ".pkg",0,p2z)
         elif filetype == 'c' or filetype == "cso":
@@ -60,6 +83,7 @@ def process_dl(games, filetype, clevel, tid, p2z):
         return gn
     else:
         return None
+    return gn
 
 # Print Download progress as bar
 def print_progress(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):
@@ -81,3 +105,11 @@ def progress(download_t, download_d, upload_t, upload_d):
     if START_TIME is None:
         START_TIME = time.time()
     print_progress(download_d,download_t,'%d/%d MB' % (download_d/1024/1024,download_t/1024/1024),'',1,40)
+
+def progress_gui(download_t, download_d, upload_t, upload_d):
+    if int(download_t) == 0:
+        return
+    global START_TIME
+    if START_TIME is None:
+        START_TIME = time.time()
+    get_tk_window().update_bar(download_d,download_t)
