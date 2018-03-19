@@ -48,7 +48,7 @@ while True:
             clevel = input("CSO compression level (1-9):")
         print("Starting download (please wait)")
         dl = process_dl(games, filetype, clevel, tid, p2z)
-        if dl == None:
+        if dl == False:
             print("Incorrect title ID or link is not in database")
         print("download finished")
         
