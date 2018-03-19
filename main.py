@@ -3,7 +3,7 @@
 
 import dataset, sys, os, glob, shutil
 from functions import *
-import uidefs
+#import uidefs
 
 db = dataset.connect("sqlite:///games.db")
 games = db['games']
