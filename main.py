@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import dataset, sys, os, glob, shutil
-import subprocess as sp
 from functions import *
+import uidefs
 
 db = dataset.connect("sqlite:///games.db")
 games = db['games']
@@ -34,7 +34,12 @@ while True:
 
 
     if mode == "s":
-        search(games,input("Search term:"))
+        results = search(games,input("Search term:").lower())
+        if results == []:
+            print("No Results found")
+        else:
+            for result in results:
+                print(result)
     elif mode == "d":
         clevel = 0
         tid = input("Title ID to download:").upper()
@@ -42,7 +47,9 @@ while True:
         if filetype == 'c':
             clevel = input("CSO compression level (1-9):")
         print("Starting download (please wait)")
-        process_dl(games, filetype, clevel, tid, p2z)
+        dl = process_dl(games, filetype, clevel, tid, p2z)
+        if dl == None:
+            print("Incorrect title ID or link is not in database")
         print("download finished")
         
     elif mode == "h":

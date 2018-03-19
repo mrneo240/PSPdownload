@@ -40,9 +40,11 @@ def isocso(name,compression, p2z):
     os.remove(name)
 
 def search(games, term):
+    results = []
     for g in games:
         if term in g['Name'].lower():
-            print("{}, {}, {}".format(g['Title ID'],g['Region'],g["Name"]))
+            results.append("{}, {}, {}".format(g['Title ID'],g['Region'],g["Name"]))
+    return results
 
 def process_dl(games, filetype, clevel, tid, p2z):
     gn = None
@@ -56,7 +58,7 @@ def process_dl(games, filetype, clevel, tid, p2z):
         elif filetype == 'c' or filetype == "cso":
             isocso(gn['Name'] + ".pkg",clevel,p2z)
     else:
-        print("title key invalid or other database error")
+        return None
 
 # Print Download progress as bar
 def print_progress(iteration, total, prefix='', suffix='', decimals=1, bar_length=100):

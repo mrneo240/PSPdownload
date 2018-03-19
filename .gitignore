@@ -2,5 +2,6 @@ __pycache__
 .vscode
 ISO
 pkg2zip
+pkg2zip.exe
 games.db
-PSP_GAMES.tsv
+*.tsv
