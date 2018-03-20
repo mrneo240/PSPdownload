@@ -1,4 +1,5 @@
 import dataset, os, errno
+import functions
 
 db = dataset.connect("sqlite:///games.db")
 games = db['games']
@@ -15,7 +16,14 @@ def get_p2z_obj():
     return p2z
 
 def init_program():
-    #also add stuff for the db here
+    if not os.path.exists("games.db"):
+        #print("database doesn't exist, do you wish to initialise it?")
+        #yn = input()
+        #if yn == "y":
+        functions.init_db()
+        #    print("Init finished")
+        #else:
+        #    sys.exit()
     try:
         os.makedirs("./ISO")
     except OSError as e:
