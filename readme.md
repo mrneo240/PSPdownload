@@ -1,8 +1,13 @@
 ## PSP Download tool
 
-this is a tool to download PSP games as ISOs. requires `pycurl` and `dataset` from pip.
+this is a tool to download PSP games as ISOs.
 
 ### Setup
+
+* Install [Python 3](https://python.org/downloads)
+* In a terminal/powershell run `pip install -r requirements.txt`
+* download the required files (specified below)
+* You can now start the program with `pspdownload2.py`
 
 ### Required Files
 To run this program you need a copy of the following files in the same folder as the program:
