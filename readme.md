@@ -2,6 +2,8 @@
 
 this is a tool to download PSP games as ISOs.
 
+NOTICE: When upgrading from older versions to a newer commit, you may need to recreate the database file.  Simply deleting `games.db` will work.
+
 ### Setup
 
 * Install [Python 3](https://python.org/downloads)
