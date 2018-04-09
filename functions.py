@@ -51,12 +51,6 @@ def init_db():
 
 def isocso(name,compression, p2z):
     sp.run(["./" + p2z,"-x",name, "-c" + str(compression)])
-    dst_file = 'ISO/{}'.format(os.path.basename(glob.glob("pspemu/ISO/*")[0]))
-    if os.path.exists(dst_file):
-            try:
-                os.remove(dst_file)
-            except EnvironmentError as exc:
-                pass
     shutil.move(glob.glob("pspemu/ISO/*")[0],"ISO")
     shutil.rmtree("pspemu")
     os.remove(name)
