@@ -30,7 +30,7 @@ class Pspdownload2(object):
         self.formatVar = tkinter.StringVar(root)
 
         # Dictionary with options
-        choices = { 'ISO','CSO','PKG'}
+        choices = {'ISO','PKG'}
         self.formatVar.set('ISO') # set the default option
 
         # Widget Initialization
