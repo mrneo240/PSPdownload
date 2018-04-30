@@ -61,6 +61,12 @@ def isocso(name,compression, p2z):
     shutil.rmtree("pspemu")
     os.remove(name)
 
+def psxpbp(name,compression, p2z):
+    sp.run(["./" + p2z,"-x",name, "-c" + str(compression)])
+    #shutil.move(glob.glob("pspemu/PSP/*")[0],"PSP")
+    #shutil.rmtree("pspemu")
+    os.remove(name)
+
 def search(games, term):
     results = []
     for g in games:
@@ -82,6 +88,8 @@ def process_dl(games, filetype, clevel, tid, p2z):
             gn = g
     if gn is not None:
         download_game_gui(gn)
+        if filetype == "pbp" or filetype == "p":
+            psxpbp(gn['Name'] + ".pkg",0,p2z)
         if filetype == 'i' or filetype == "iso":
             isocso(gn['Name'] + ".pkg",0,p2z)
         elif filetype == 'c' or filetype == "cso":

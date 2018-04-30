@@ -93,7 +93,7 @@ class CustomPspdownload2(Pspdownload2):
         item = self._listbox_1.curselection()
         clevel = self.compressionVar.get()
         tid = self.results[item[0]]["Title ID"].upper()
-        filetype = self.formatVar.get()[0].lower()
+        filetype = self.formatVar.get().lower() #[0]
         self.app.start(clevel,tid,filetype)
         pass
 

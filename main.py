@@ -29,6 +29,8 @@ while True:
             sys.exit()
     if not os.path.exists("ISO"):
         os.mkdir("ISO")
+    if not os.path.exists("PSP"):
+        os.mkdir("PSP")
 
     mode = input("Select mode (h for help):")
 

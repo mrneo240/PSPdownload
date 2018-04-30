@@ -4,5 +4,7 @@ ISO
 pkg2zip
 pkg2zip.exe
 games.db
-*.tsv
+*.tsv*
 *.pkg
+build
+dist

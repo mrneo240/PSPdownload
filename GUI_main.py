@@ -26,6 +26,7 @@ def init_program():
         #    sys.exit()
     try:
         os.makedirs("./ISO")
+        os.makedirs("./PSP")
     except OSError as e:
         if e.errno != errno.EEXIST:
             raise
