@@ -9,31 +9,25 @@ START_TIME = None
 def download_game(g):
     local_filename = g['Name'] + ".pkg"
     local_file = open(local_filename,"wb")
-    if g['PKG direct link'] != "MISSING":
-        c = pycurl.Curl()
-        c.setopt(pycurl.URL, g['PKG direct link'])
-        c.setopt(pycurl.WRITEDATA, local_file)
-        c.setopt(pycurl.NOPROGRESS, 0)
-        c.setopt(c.PROGRESSFUNCTION, progress)
-        c.perform()
-        c.close()
-    else:
-        print("There is no link associated with this game.")
+    c = pycurl.Curl()
+    c.setopt(pycurl.URL, g['PKG direct link'])
+    c.setopt(pycurl.WRITEDATA, local_file)
+    c.setopt(pycurl.NOPROGRESS, 0)
+    c.setopt(c.PROGRESSFUNCTION, progress)
+    c.perform()
+    c.close()
     return local_filename
 
 def download_game_gui(g):
     local_filename = g['Name'] + ".pkg"
     local_file = open(local_filename,"wb")
-    if g['PKG direct link'] != "MISSING":
-        c = pycurl.Curl()
-        c.setopt(pycurl.URL, g['PKG direct link'])
-        c.setopt(pycurl.WRITEDATA, local_file)
-        c.setopt(pycurl.NOPROGRESS, 0)
-        c.setopt(c.PROGRESSFUNCTION, progress_gui)
-        c.perform()
-        c.close()
-    else:
-        print("There is no link associated with this game.")
+    c = pycurl.Curl()
+    c.setopt(pycurl.URL, g['PKG direct link'])
+    c.setopt(pycurl.WRITEDATA, local_file)
+    c.setopt(pycurl.NOPROGRESS, 0)
+    c.setopt(c.PROGRESSFUNCTION, progress_gui)
+    c.perform()
+    c.close()
     return local_filename
 
 def init_db():
@@ -43,7 +37,7 @@ def init_db():
     
     with open('PSP_GAMES.tsv','r', encoding="utf8") as fin:
         dr = csv.DictReader(fin, delimiter="\t")
-        to_db = [(i['Title ID'], i['Region'], i['Name'],i['PKG direct link']) for i in dr]
+        to_db = [(i['Title ID'], i['Region'], i['Name'],i['PKG direct link']) for i in dr if i['PKG direct link'] != 'MISSING']
     
     cur.executemany("INSERT INTO games (\"Title ID\", \"Region\", \"Name\", \"PKG direct link\") VALUES (?, ?, ?, ?);", to_db)
     con.commit()
