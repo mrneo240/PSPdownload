@@ -106,10 +106,12 @@ class CustomPspdownload2(Pspdownload2):
         self.results = []
         self.results = search_list(get_games_obj(),self.entryVar.get().lower())
         if self.results == []:
-            self._listbox_1.insert("No Results found")
+            self._listbox_1.insert(tkinter.END,"No Results found")
+            self.download_btn["state"]=tkinter.DISABLED
         else:
            for game in self.results:
-                self._listbox_1.insert(tkinter.END, "{}, {}, {}".format(game["Title ID"],game["Region"],game["Name"])) 
+                self._listbox_1.insert(tkinter.END, "{}, {}, {}, {:.2f} MB".format(game['Title ID'],game['Region'],game["Name"],int(game["File Size"])/1024/1024))
+           self.download_btn["state"]=tkinter.NORMAL
 
         pass
 
