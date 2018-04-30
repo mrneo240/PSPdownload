@@ -33,13 +33,13 @@ def download_game_gui(g):
 def init_db():
     con = sqlite3.connect("games.db")
     cur = con.cursor()
-    cur.execute("CREATE TABLE games (\"Title ID\", \"Region\", \"Name\", \"PKG direct link\");")
+    cur.execute("CREATE TABLE games (\"Title ID\", \"Region\", \"Name\", \"PKG direct link\", \"File Size\");")
     
     with open('PSP_GAMES.tsv','r', encoding="utf8") as fin:
         dr = csv.DictReader(fin, delimiter="\t")
-        to_db = [(i['Title ID'], i['Region'], i['Name'],i['PKG direct link']) for i in dr if i['PKG direct link'] != 'MISSING']
+        to_db = [(i['Title ID'], i['Region'], i['Name'],i['PKG direct link'], i['File Size']) for i in dr if i['PKG direct link'] != 'MISSING']
     
-    cur.executemany("INSERT INTO games (\"Title ID\", \"Region\", \"Name\", \"PKG direct link\") VALUES (?, ?, ?, ?);", to_db)
+    cur.executemany("INSERT INTO games (\"Title ID\", \"Region\", \"Name\", \"PKG direct link\", \"File Size\") VALUES (?, ?, ?, ?, ?);", to_db)
     con.commit()
     con.close()
 
@@ -65,14 +65,14 @@ def search(games, term):
     results = []
     for g in games:
         if term in g['Name'].lower():
-            results.append("{}, {}, {}".format(g['Title ID'],g['Region'],g["Name"]))
+            results.append("{}, {}, {}, {}".format(g['Title ID'],g['Region'],g["Name"],g["File Size"]))
     return results
 
 def search_list(games, term):
     results = []
     for g in games:
         if term in g['Name'].lower():
-            results.append({'Title ID':g['Title ID'],'Region':g['Region'],'Name':g["Name"]})
+            results.append({'Title ID':g['Title ID'],'Region':g['Region'],'Name':g["Name"],'File Size':g["File Size"]})
     return results
 
 def process_dl(games, filetype, clevel, tid, p2z):

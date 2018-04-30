@@ -30,11 +30,7 @@ class Pspdownload2(object):
         self.formatVar = tkinter.StringVar(root)
 
         # Dictionary with options
-<<<<<<< HEAD
         choices = { 'ISO','CSO','PKG','PBP'}
-=======
-        choices = {'ISO','PKG'}
->>>>>>> 4e7681b56749c42efd7b804126a6b9e106c97abd
         self.formatVar.set('ISO') # set the default option
 
         # Widget Initialization
@@ -209,5 +205,5 @@ class Pspdownload2(object):
         self.db = get_db_obj()
         self.games = get_games_obj()
         for game in games:
-            self._listbox_1.insert(tkinter.END, "{}, {}, {}".format(game['Title ID'],game['Region'],game["Name"]))
-            self.results.append({'Title ID':game['Title ID'],'Region':game['Region'],'Name':game["Name"]})
+            self._listbox_1.insert(tkinter.END, "{}, {}, {}, {:.2f} MB".format(game['Title ID'],game['Region'],game["Name"],int(game["File Size"])/1024/1024))
+            self.results.append({'Title ID':game['Title ID'],'Region':game['Region'],'Name':game["Name"],'File Size':game["File Size"]})
