@@ -110,7 +110,7 @@ class CustomPspdownload2(Pspdownload2):
             self.download_btn["state"]=tkinter.DISABLED
         else:
            for game in self.results:
-                self._listbox_1.insert(tkinter.END, "{}, {}, {}, {:.2f} MB".format(game['Title ID'],game['Region'],game["Name"],int(game["File Size"])/1024/1024))
+                self._listbox_1.insert(tkinter.END, "{}, {}, {}, {:.2f} MB".format(game['Title ID'],game['Region'],game["Name"],int((game["File Size"] if len(game["File Size"]) else 0))/1024/1024))
            self.download_btn["state"]=tkinter.NORMAL
 
         pass

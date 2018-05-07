@@ -205,5 +205,5 @@ class Pspdownload2(object):
         self.db = get_db_obj()
         self.games = get_games_obj()
         for game in games:
-            self._listbox_1.insert(tkinter.END, "{}, {}, {}, {:.2f} MB".format(game['Title ID'],game['Region'],game["Name"],int(game["File Size"])/1024/1024))
+            self._listbox_1.insert(tkinter.END, "{}, {}, {}, {:.2f} MB".format(game['Title ID'],game['Region'],game["Name"],int((game["File Size"] if len(game["File Size"]) else 0))/1024/1024))
             self.results.append({'Title ID':game['Title ID'],'Region':game['Region'],'Name':game["Name"],'File Size':game["File Size"]})
