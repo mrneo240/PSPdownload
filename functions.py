@@ -8,6 +8,7 @@ START_TIME = None
 
 def sanitize_name(name):
 	clean_name = re.sub(r'\W+', '', name)
+	clean_name = clean_name if len(clean_name) == 0 else 'temp'
 	return clean_name
 	
 
