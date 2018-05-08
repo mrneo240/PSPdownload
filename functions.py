@@ -37,11 +37,26 @@ def download_game_gui(g):
     return local_filename
 
 def init_db():
-    con = sqlite3.connect("games.db")
+#    con = sqlite3.connect("games.db")
+#    cur = con.cursor()
+#    cur.execute("CREATE TABLE games (\"Title ID\", \"Region\", \"Name\", \"PKG direct link\", \"File Size\");")
+#    
+#    with open('PSP_GAMES.tsv','r', encoding="utf8") as fin:
+#        dr = csv.DictReader(fin, delimiter="\t")
+#        to_db = [(i['Title ID'], i['Region'], i['Name'],i['PKG direct link'], i['File Size']) for i in dr if i['PKG direct link'] != 'MISSING']
+#    
+#    cur.executemany("INSERT INTO games (\"Title ID\", \"Region\", \"Name\", \"PKG direct link\", \"File Size\") VALUES (?, ?, ?, ?, ?);", to_db)
+#    con.commit()
+#    con.close()
+     init_db_ex('PSP_GAMES.tsv')
+	
+def init_db_ex(file):
+    #con = sqlite3.connect("games.db")
+    con = sqlite3.connect(os.path.splitext(file)[0]+'.db')
     cur = con.cursor()
     cur.execute("CREATE TABLE games (\"Title ID\", \"Region\", \"Name\", \"PKG direct link\", \"File Size\");")
     
-    with open('PSP_GAMES.tsv','r', encoding="utf8") as fin:
+    with open(file,'r', encoding="utf8") as fin:
         dr = csv.DictReader(fin, delimiter="\t")
         to_db = [(i['Title ID'], i['Region'], i['Name'],i['PKG direct link'], i['File Size']) for i in dr if i['PKG direct link'] != 'MISSING']
     
