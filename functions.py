@@ -1,13 +1,18 @@
 # -*- coding: utf-8 -*-
 
-import pycurl, csv, sqlite3, os, shutil, glob, sys, time
+import pycurl, csv, sqlite3, os, shutil, glob, sys, time, re
 import subprocess as sp
 from GUI_main import get_tk_window
 
 START_TIME = None
 
+def sanitize_name(name):
+	clean_name = re.sub(r'\W+', '', name)
+	return clean_name
+	
+
 def download_game(g):
-    local_filename = g['Name'] + ".pkg"
+    local_filename = sanitize_name(g['Name']) + ".pkg"
     local_file = open(local_filename,"wb")
     c = pycurl.Curl()
     c.setopt(pycurl.URL, g['PKG direct link'])
@@ -19,7 +24,7 @@ def download_game(g):
     return local_filename
 
 def download_game_gui(g):
-    local_filename = g['Name'] + ".pkg"
+    local_filename = sanitize_name(g['Name']) + ".pkg"
     local_file = open(local_filename,"wb")
     c = pycurl.Curl()
     c.setopt(pycurl.URL, g['PKG direct link'])
@@ -83,11 +88,11 @@ def process_dl(games, filetype, clevel, tid, p2z):
     if gn is not None:
         download_game_gui(gn)
         if filetype == "pbp" or filetype == "p":
-            psxpbp(gn['Name'] + ".pkg",0,p2z)
+            psxpbp(sanitize_name(gn['Name']) + ".pkg",0,p2z)
         if filetype == 'i' or filetype == "iso":
-            isocso(gn['Name'] + ".pkg",0,p2z)
+            isocso(sanitize_name(gn['Name']) + ".pkg",0,p2z)
         elif filetype == 'c' or filetype == "cso":
-            isocso(gn['Name'] + ".pkg",clevel,p2z)
+            isocso(sanitize_name(gn['Name']) + ".pkg",clevel,p2z)
         return gn
     else:
         return None

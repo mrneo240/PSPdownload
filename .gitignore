@@ -8,3 +8,4 @@ games.db
 *.pkg
 build
 dist
+needed-extras.zip
